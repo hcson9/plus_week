@@ -9,6 +9,7 @@ import com.example.demo.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<CommonResponseBody<Void>> signupWithEmail(@RequestBody UserRequestDto userRequestDto) {
         userService.signupWithEmail(userRequestDto);
-        return ResponseEntity.ok()
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new CommonResponseBody<>("success"));
     }
 

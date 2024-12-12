@@ -63,7 +63,7 @@ class UserControllerTest {
 
     mockMvc.perform(post(baseUrl)
                     .content(objectMapper.writeValueAsString(requestDto)).contentType(MediaType.APPLICATION_JSON))
-            .andExpectAll(status().isOk(),
+            .andExpectAll(status().isCreated(),
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.message").exists());
   }
