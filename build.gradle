@@ -42,10 +42,8 @@ dependencies {
     // H2 Database
     runtimeOnly 'com.h2database:h2'
 
-    // https://mvnrepository.com/artifact/software.amazon.awssdk/s3
-    testImplementation 'software.amazon.awssdk:s3:2.29.31'
-
-    implementation("software.amazon.awssdk:s3")
+    // Replace the following with the starter dependencies of specific modules you wish to use
+    implementation 'io.awspring.cloud:spring-cloud-aws-s3:3.2.1'
 
 
     // lombok

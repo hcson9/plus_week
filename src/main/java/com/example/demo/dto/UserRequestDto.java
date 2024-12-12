@@ -17,15 +17,6 @@ public class UserRequestDto {
         this.password = password;
     }
 
-    public User toEntity() {
-        return new User(
-                this.role,
-                this.email,
-                this.nickname,
-                this.password
-        );
-    }
-
     public void updatePassword(String encryptedPassword) {
         this.password = encryptedPassword;
     }

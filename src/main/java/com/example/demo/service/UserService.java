@@ -7,25 +7,26 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.util.PasswordEncoder;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Transactional
     public void signupWithEmail(UserRequestDto userRequestDto) {
         String encodedPassword = PasswordEncoder.encode(userRequestDto.getPassword());
-        userRequestDto.updatePassword(encodedPassword);
 
-        userRepository.save(userRequestDto.toEntity());
+        userRepository.save(new User(
+                userRequestDto.getRole(),
+                userRequestDto.getEmail(),
+                userRequestDto.getNickname(),
+                encodedPassword));
     }
 
     public Authentication loginUser(LoginRequestDto loginRequestDto) {

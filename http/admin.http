@@ -1,0 +1,6 @@
+POST localhost:8080/admins/report-users
+Content-Type: application/json
+
+{
+  "userIds" : [1,2,3]
+}

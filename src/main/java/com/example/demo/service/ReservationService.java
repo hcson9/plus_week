@@ -6,6 +6,7 @@ import com.example.demo.exception.ReservationConflictException;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.ReservationRepository;
 import com.example.demo.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,19 +17,11 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
-
-    public ReservationService(ReservationRepository reservationRepository,
-                              ItemRepository itemRepository,
-                              UserRepository userRepository,
-                              RentalLogService rentalLogService) {
-        this.reservationRepository = reservationRepository;
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-    }
 
     // TODO: 1. 트랜잭션 이해
     @Transactional

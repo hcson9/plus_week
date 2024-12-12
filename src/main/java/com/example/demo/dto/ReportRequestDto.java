@@ -8,5 +8,7 @@ import java.util.List;
 public class ReportRequestDto {
     private List<Long> userIds;
 
-    public ReportRequestDto() {}
+    public ReportRequestDto(List<Long> userIds) {
+        this.userIds = userIds;
+    }
 }

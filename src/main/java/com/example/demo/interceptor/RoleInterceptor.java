@@ -17,6 +17,8 @@ import com.example.demo.exception.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -32,13 +34,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class RoleInterceptor implements HandlerInterceptor {
 
   private final Role role;
-
-  protected RoleInterceptor(Role role) {
-    this.role = role;
-  }
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
