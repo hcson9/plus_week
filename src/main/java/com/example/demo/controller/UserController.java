@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/login")
     public void loginWithEmail(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest request) {
         Authentication authentication = userService.loginUser(loginRequestDto);
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         session.setAttribute(GlobalConstants.USER_AUTH, authentication);
     }
 

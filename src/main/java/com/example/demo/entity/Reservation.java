@@ -1,13 +1,17 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,19 +29,36 @@ public class Reservation {
 
     private LocalDateTime endAt;
 
-    private String status; // PENDING, APPROVED, CANCELED, EXPIRED
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status; // PENDING, APPROVED, CANCELED, EXPIRED
 
-    public Reservation(Item item, User user, String status, LocalDateTime startAt, LocalDateTime endAt) {
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<RentalLog> rentalLogList = new ArrayList<>();
+
+    public Reservation(Item item, User user, LocalDateTime startAt, LocalDateTime endAt) {
         this.item = item;
         this.user = user;
-        this.status = status;
         this.startAt = startAt;
         this.endAt = endAt;
+        this.status = ReservationStatus.PENDING;
     }
 
-    public Reservation() {}
+    public void updateStatus(ReservationStatus newStatus) {
+        if (!isApproveUpdateStatus(newStatus)) {
+            throw new IllegalStateException(String.format("Cannot transition from %s to %s", this.status, newStatus));
+        }
+        this.status = newStatus;
+    }
 
-    public void updateStatus(String status) {
-        this.status = status;
+    private boolean isApproveUpdateStatus(ReservationStatus status) {
+        return switch (status) {
+            case APPROVED, EXPIRED -> this.status == ReservationStatus.PENDING;
+          case CANCELED -> this.status != ReservationStatus.EXPIRED;
+          default -> throw new IllegalStateException("Unexpected value: " + status);
+        };
+    }
+
+    public void addRentalLog(RentalLog rentalLog) {
+        this.rentalLogList.add(rentalLog);
     }
 }

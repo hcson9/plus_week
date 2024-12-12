@@ -11,13 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long>, ReservationCustomRepository {
 
-    List<Reservation> findByUserIdAndItemId(Long userId, Long itemId);
+    @Query("SELECT r FROM Reservation r JOIN FETCH r.user JOIN FETCH r.item")
+    List<Reservation> findAllWithUserAndItem();
 
-    List<Reservation> findByUserId(Long userId);
-
-    List<Reservation> findByItemId(Long itemId);
 
     @Query("SELECT r FROM Reservation r " +
             "WHERE r.item.id = :id " +

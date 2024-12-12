@@ -1,11 +1,16 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@DynamicInsert
 // TODO: 6. Dynamic Insert
 public class Item {
     @Id
@@ -33,6 +38,4 @@ public class Item {
         this.manager = manager;
         this.owner = owner;
     }
-
-    public Item() {}
 }

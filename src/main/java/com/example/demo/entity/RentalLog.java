@@ -1,10 +1,13 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RentalLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +27,4 @@ public class RentalLog {
         this.logType = logType;
     }
 
-    public RentalLog() {}
 }
