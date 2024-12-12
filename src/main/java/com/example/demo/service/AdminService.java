@@ -19,10 +19,10 @@ public class AdminService {
     public void reportUsers(List<Long> userIds) {
         List<User> users = userRepository.findAllById(userIds);
 
-//        if (CollectionUtils.isEmpty(users)) {
-//            throw new IllegalArgumentException("사용자가 없습니다.");
-//        }
-//
-//        userRepository.updateStatusToPendingForApprovedUsers(userIds);
+        if (CollectionUtils.isEmpty(users)) {
+            throw new IllegalArgumentException("사용자가 없습니다.");
+        }
+
+        userRepository.updateStatusToPendingForApprovedUsers(userIds);
     }
 }
