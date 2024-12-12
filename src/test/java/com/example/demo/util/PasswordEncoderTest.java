@@ -40,19 +40,21 @@ class PasswordEncoderTest {
 
   @Test
   void matchesSuccessTest() {
+    // given
     String password = "123456";
-
     String encoded = passwordEncoder.encode(password);
 
+    // then
     assertThat(passwordEncoder.matches(password, encoded)).isTrue();
   }
 
   @Test
   void matchesFailTest() {
+    // given
     String password = "123456";
-
     String encoded = passwordEncoder.encode(password);
 
+    // then
     assertThat(passwordEncoder.matches("1234567", encoded)).isFalse();
   }
 }

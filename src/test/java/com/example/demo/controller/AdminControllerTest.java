@@ -8,11 +8,15 @@ package com.example.demo.controller;/*
  * Written by Dev Backend Team <hochan@bigin.io>, 2024. 12. 12.
  */
 
+import com.example.demo.constants.GlobalConstants;
+import com.example.demo.dto.Authentication;
 import com.example.demo.dto.ReportRequestDto;
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.service.AdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,8 +26,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureGraphQlTester;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -49,40 +56,41 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(AdminController.class)
 class AdminControllerTest {
-
-  private MockMvc mvc;
-
-  @InjectMocks
-  private AdminController adminController;
-
-  @Mock
+  @MockitoBean
   private AdminService adminService;
+
+  @Autowired
+  private MockMvc mvc;
 
   private final String baseUrl = "/admins";
 
-  ObjectMapper objectMapper = new ObjectMapper();
-
-  @BeforeEach
-  void setUp() {
-    mvc = MockMvcBuilders.standaloneSetup(adminController).build();
-  }
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Test
   void reportUsersTest() throws Exception {
+
+    // given
     List<Long> ids = List.of(1L, 2L, 3L);
     List<User> users = new ArrayList<>();
     users.add(Mockito.mock(User.class));
     users.add(Mockito.mock(User.class));
+
     ReportRequestDto reportRequestDto = new ReportRequestDto(ids);
 
+    MockHttpSession session = new MockHttpSession();
+    Authentication authentication = new Authentication(1L, Role.ADMIN);
+    session.setAttribute(GlobalConstants.USER_AUTH, authentication);
+
+    // then
     mvc.perform(post(baseUrl + "/report-users")
                     .content(objectMapper.writeValueAsString(reportRequestDto))
-                    .contentType(MediaType.APPLICATION_JSON))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .session(session))
             .andExpectAll(status().isOk(),
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.message").exists());
-
   }
 }

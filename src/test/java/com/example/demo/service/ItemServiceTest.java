@@ -49,15 +49,17 @@ class ItemServiceTest {
 
   @Test
   void createItemTest() {
+    // given
     Long ownerId = 1L;
     Long managerId = 2L;
     User owner = Mockito.mock(User.class);
     User manager = Mockito.mock(User.class);
 
+    // when
     when(userRepository.findUserById(ownerId)).thenReturn(owner);
     when(userRepository.findUserById(managerId)).thenReturn(manager);
 
-
+    // then
     assertDoesNotThrow(() -> itemService.createItem("사과", "안녕하세요", ownerId, managerId));
   }
 }

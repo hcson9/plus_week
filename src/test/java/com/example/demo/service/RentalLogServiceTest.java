@@ -44,12 +44,16 @@ class RentalLogServiceTest {
 
   @Test
   void saveSuccessTest() {
+    // given
     RentalLog rentalLog = Mockito.mock(RentalLog.class);
+
+    // then
     assertDoesNotThrow(() -> rentalLogService.save(rentalLog));
   }
 
   @Test
   void saveFailTest() {
+    // then
     assertThrows(RuntimeException.class, () -> rentalLogService.save(null));
   }
 }

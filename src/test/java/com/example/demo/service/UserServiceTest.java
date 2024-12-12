@@ -66,19 +66,25 @@ class UserServiceTest {
       // given
       LoginRequestDto requestDto = new LoginRequestDto("user", "123456");
       User user = Mockito.mock(User.class);
-
       given(user.getPassword()).willReturn(PasswordEncoder.encode("123456"));
 
+      // when
       when(userRepository.findByEmail(requestDto.getEmail())).thenReturn(user);
 
+      // then
       assertDoesNotThrow(() -> userService.loginUser(requestDto));
     }
+
     @Test
     void loginUserEmptyUserTest() {
       // given
       LoginRequestDto requestDto = new LoginRequestDto("user", "123456");
+
+      // when
       when(userRepository.findByEmail(requestDto.getEmail())).thenReturn(null);
 
+
+      // then
       assertThrows(ResponseStatusException.class, () -> userService.loginUser(requestDto));
     }
 
@@ -87,10 +93,12 @@ class UserServiceTest {
       // given
       LoginRequestDto requestDto = new LoginRequestDto("user", "123456");
       User user = Mockito.mock(User.class);
-      when(userRepository.findByEmail(requestDto.getEmail())).thenReturn(user);
-
       given(user.getPassword()).willReturn(PasswordEncoder.encode("1234567"));
 
+      // when
+      when(userRepository.findByEmail(requestDto.getEmail())).thenReturn(user);
+
+      // then
       assertThrows(ResponseStatusException.class, () -> userService.loginUser(requestDto));
     }
   }
