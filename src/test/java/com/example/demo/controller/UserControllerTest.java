@@ -10,13 +10,13 @@ package com.example.demo.controller;/*
 
 import com.example.demo.constants.GlobalConstants;
 import com.example.demo.dto.Authentication;
-import com.example.demo.dto.ReportRequestDto;
+import com.example.demo.dto.LoginRequestDto;
+import com.example.demo.dto.UserRequestDto;
 import com.example.demo.entity.Role;
-import com.example.demo.entity.User;
-import com.example.demo.service.AdminService;
+import com.example.demo.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -24,9 +24,9 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,37 +42,53 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-@WebMvcTest(AdminController.class)
-class AdminControllerTest {
-  @MockitoBean
-  private AdminService adminService;
+@WebMvcTest(UserController.class)
+class UserControllerTest {
 
   @Autowired
-  private MockMvc mvc;
+  private MockMvc mockMvc;
 
-  private final String baseUrl = "/admins";
+  @MockitoBean
+  private UserService userService;
 
   @Autowired
   private ObjectMapper objectMapper;
 
+
+  private String baseUrl = "/users";
+
   @Test
-  void reportUsersTest() throws Exception {
+  void signupWithEmail() throws Exception {
+    UserRequestDto requestDto = new UserRequestDto("user", "123@123.com", "test", "1234");
 
-    // given
-    List<Long> ids = List.of(1L, 2L, 3L);
-    List<User> users = new ArrayList<>();
-    users.add(Mockito.mock(User.class));
-    users.add(Mockito.mock(User.class));
+    mockMvc.perform(post(baseUrl)
+                    .content(objectMapper.writeValueAsString(requestDto)).contentType(MediaType.APPLICATION_JSON))
+            .andExpectAll(status().isOk(),
+                    content().contentType(MediaType.APPLICATION_JSON),
+                    jsonPath("$.message").exists());
+  }
 
-    ReportRequestDto reportRequestDto = new ReportRequestDto(ids);
-
+  @Test
+  void loginWithEmail() throws Exception {
+    LoginRequestDto requestDto = new LoginRequestDto("user", "1234");
     MockHttpSession session = new MockHttpSession();
-    Authentication authentication = new Authentication(1L, Role.ADMIN);
+
+    mockMvc.perform(post(baseUrl + "/login")
+                    .content(objectMapper.writeValueAsString(requestDto))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .session(session))
+            .andExpectAll(status().isOk(),
+                    content().contentType(MediaType.APPLICATION_JSON),
+                    jsonPath("$.message").exists());
+  }
+
+  @Test
+  void logout() throws Exception {
+    MockHttpSession session = new MockHttpSession();
+    Authentication authentication = new Authentication(1L, Role.USER);
     session.setAttribute(GlobalConstants.USER_AUTH, authentication);
 
-    // then
-    mvc.perform(post(baseUrl + "/report-users")
-                    .content(objectMapper.writeValueAsString(reportRequestDto))
+    mockMvc.perform(post(baseUrl + "/logout")
                     .contentType(MediaType.APPLICATION_JSON)
                     .session(session))
             .andExpectAll(status().isOk(),

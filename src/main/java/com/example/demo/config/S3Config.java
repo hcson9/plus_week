@@ -56,9 +56,10 @@ public class S3Config {
   public S3Client getS3Client() {
     return S3Client.builder()
             .credentialsProvider(StaticCredentialsProvider.create(awsCredentials(accessKey, secretKey)))
-            .serviceConfiguration(S3Configuration.builder()
-                    .pathStyleAccessEnabled(true) // 필요 시 경로 스타일 사용
-                    .build())
+//            .serviceConfiguration(S3Configuration.builder()
+//                    .pathStyleAccessEnabled(true)
+//                    .build())
+//            .forcePathStyle(true) // 필요 시 경로 스타일 사용
             .endpointOverride(customEndpoint())
             .region(Region.of(region))
             .build();

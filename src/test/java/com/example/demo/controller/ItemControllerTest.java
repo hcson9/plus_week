@@ -10,13 +10,13 @@ package com.example.demo.controller;/*
 
 import com.example.demo.constants.GlobalConstants;
 import com.example.demo.dto.Authentication;
-import com.example.demo.dto.ReportRequestDto;
+import com.example.demo.dto.ItemRequestDto;
 import com.example.demo.entity.Role;
-import com.example.demo.entity.User;
-import com.example.demo.service.AdminService;
+import com.example.demo.service.ItemService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -24,9 +24,9 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,38 +42,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-@WebMvcTest(AdminController.class)
-class AdminControllerTest {
-  @MockitoBean
-  private AdminService adminService;
+@WebMvcTest(ItemController.class)
+class ItemControllerTest {
 
   @Autowired
-  private MockMvc mvc;
+  private MockMvc mockMvc;
 
-  private final String baseUrl = "/admins";
+  @MockitoBean
+  private ItemService itemService;
 
   @Autowired
   private ObjectMapper objectMapper;
 
-  @Test
-  void reportUsersTest() throws Exception {
+  private String baseUrl = "/items";
 
-    // given
-    List<Long> ids = List.of(1L, 2L, 3L);
-    List<User> users = new ArrayList<>();
-    users.add(Mockito.mock(User.class));
-    users.add(Mockito.mock(User.class));
+  private MockHttpSession session;
 
-    ReportRequestDto reportRequestDto = new ReportRequestDto(ids);
-
-    MockHttpSession session = new MockHttpSession();
+  @BeforeEach
+  void setUp() {
+    session = new MockHttpSession();
     Authentication authentication = new Authentication(1L, Role.ADMIN);
     session.setAttribute(GlobalConstants.USER_AUTH, authentication);
+  }
 
-    // then
-    mvc.perform(post(baseUrl + "/report-users")
-                    .content(objectMapper.writeValueAsString(reportRequestDto))
-                    .contentType(MediaType.APPLICATION_JSON)
+  @Test
+  void createItemTest() throws Exception {
+    ItemRequestDto requestDto = new ItemRequestDto("name", "description", 1L, 2L);
+
+    mockMvc.perform(post(baseUrl)
+            .content(objectMapper.writeValueAsString(requestDto))
+            .contentType(MediaType.APPLICATION_JSON)
                     .session(session))
             .andExpectAll(status().isOk(),
                     content().contentType(MediaType.APPLICATION_JSON),

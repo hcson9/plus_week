@@ -11,4 +11,11 @@ public class ItemRequestDto {
     private Long managerId;
 
     private Long ownerId;
+
+    public ItemRequestDto(String name, String description, Long managerId, Long ownerId) {
+        this.name = name;
+        this.description = description;
+        this.managerId = managerId;
+        this.ownerId = ownerId;
+    }
 }
