@@ -31,8 +31,8 @@ class UserTest {
   @Test
   void updateStatusToBlocked() {
     User user = new User("user", "test@test.com", "테스트", "123456");
-    user.updateStatusToBlocked();
+    user.updateStatus(Status.EXPIRED);
 
-    assertThat(user.getStatus()).isEqualTo("BLOCKED");
+    assertThat(user.getStatus()).isEqualTo(Status.EXPIRED);
   }
 }

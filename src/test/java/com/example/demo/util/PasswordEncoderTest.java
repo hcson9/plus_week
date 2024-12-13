@@ -57,4 +57,10 @@ class PasswordEncoderTest {
     // then
     assertThat(passwordEncoder.matches("1234567", encoded)).isFalse();
   }
+
+  @Test
+  void constructor() {
+    PasswordEncoder passwordEncoder = new PasswordEncoder();
+    assertNotNull(passwordEncoder);
+  }
 }

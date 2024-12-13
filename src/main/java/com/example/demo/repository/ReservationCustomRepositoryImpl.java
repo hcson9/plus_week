@@ -45,8 +45,8 @@ public class ReservationCustomRepositoryImpl implements ReservationCustomReposit
     QReservation reservation = QReservation.reservation;
 
     return jpaQueryFactory.selectFrom(reservation)
-            .where(eqUserId(reservation, userId)
-                    .and(eqItemId(reservation, itemId)))
+            .where(eqUserId(reservation, userId),
+                    eqItemId(reservation, itemId))
             .fetch();
   }
 

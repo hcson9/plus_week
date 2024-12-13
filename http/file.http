@@ -1,0 +1,59 @@
+
+## API에 필요한 변수 정의
+@nickname = user123
+@password = 123123
+@role = user
+@email = 123@naver.com
+
+### "user" 권한으로 계정 등록
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "nickname": "{{nickname}}",
+  "password": "{{password}}",
+  "role": "{{role}}",
+  "email": "{{email}}"
+}
+
+### 로그인
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+
+### upload banner images
+POST localhost:8080/files
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="files"; filename="1.png";
+Content-Type: image/png
+
+< 1.png
+
+--boundary
+Content-Disposition: form-data; name="files"; filename="2.png";
+Content-Type: image/png
+
+< 2.png
+
+### download
+POST http://localhost:8080/files/download
+Content-Type: application/json
+
+{
+  "key": "/.png"
+}
+
+### DELETE File
+DELETE http://localhost:8080/files
+Content-Type: application/json
+
+{
+  "key": "/2.png"
+}

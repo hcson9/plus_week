@@ -20,9 +20,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     // TODO: 2. 인가에 대한 이해
-    private static final String[] AUTH_REQUIRED_PATH_PATTERNS = {"/users/logout", "/items/*"};
-    private static final String[] USER_ROLE_REQUIRED_PATH_PATTERNS = {"/reservations/*"};
-    private static final String[] ADMIN_ROLE_REQUIRED_PATH_PATTERNS = {"/admins/*"};
+    private static final String[] AUTH_REQUIRED_PATH_PATTERNS = {"/users/logout", "/items/**", "/files/**"};
+    private static final String[] USER_ROLE_REQUIRED_PATH_PATTERNS = {"/reservations/**"};
+    private static final String[] ADMIN_ROLE_REQUIRED_PATH_PATTERNS = {"/admins/**"};
 
     private final AuthInterceptor authInterceptor;
     private final UserRoleInterceptor userRoleInterceptor;

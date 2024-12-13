@@ -59,7 +59,7 @@ public class S3Config {
 //            .serviceConfiguration(S3Configuration.builder()
 //                    .pathStyleAccessEnabled(true)
 //                    .build())
-//            .forcePathStyle(true) // 필요 시 경로 스타일 사용
+            .forcePathStyle(true) // 필요 시 경로 스타일 사용
             .endpointOverride(customEndpoint())
             .region(Region.of(region))
             .build();

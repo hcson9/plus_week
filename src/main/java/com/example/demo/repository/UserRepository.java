@@ -18,6 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     }
 
     @Modifying
-    @Query("UPDATE User u SET u.status = 'PENDING' WHERE u.status = 'APPROVE' AND u.id IN :ids")
-    int updateStatusToPendingForApprovedUsers(@Param("ids") List<Long> ids);
+    @Query("UPDATE User u SET u.status = 'PENDING' WHERE u.status = 'APPROVED' AND u.id IN :ids")
+    int updatePendingStatus(@Param("ids") List<Long> ids);
 }

@@ -30,7 +30,7 @@ public class Reservation {
     private LocalDateTime endAt;
 
     @Enumerated(EnumType.STRING)
-    private ReservationStatus status; // PENDING, APPROVED, CANCELED, EXPIRED
+    private Status status; // PENDING, APPROVED, CANCELED, EXPIRED
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     private List<RentalLog> rentalLogList = new ArrayList<>();
@@ -40,20 +40,20 @@ public class Reservation {
         this.user = user;
         this.startAt = startAt;
         this.endAt = endAt;
-        this.status = ReservationStatus.PENDING;
+        this.status = Status.PENDING;
     }
 
-    public void updateStatus(ReservationStatus newStatus) {
+    public void updateStatus(Status newStatus) {
         if (!isApproveUpdateStatus(newStatus)) {
             throw new IllegalStateException(String.format("Cannot transition from %s to %s", this.status, newStatus));
         }
         this.status = newStatus;
     }
 
-    private boolean isApproveUpdateStatus(ReservationStatus status) {
+    private boolean isApproveUpdateStatus(Status status) {
         return switch (status) {
-            case APPROVED, EXPIRED -> this.status == ReservationStatus.PENDING;
-          case CANCELED -> this.status != ReservationStatus.EXPIRED;
+            case APPROVED, EXPIRED -> this.status == Status.PENDING;
+          case CANCELED -> this.status != Status.EXPIRED;
           default -> throw new IllegalStateException("Unexpected value: " + status);
         };
     }

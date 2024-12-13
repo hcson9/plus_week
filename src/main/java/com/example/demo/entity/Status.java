@@ -22,7 +22,7 @@ package com.example.demo.entity;
  * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-public enum ReservationStatus {
+public enum Status {
   APPROVED,
   PENDING,
   CANCELED,

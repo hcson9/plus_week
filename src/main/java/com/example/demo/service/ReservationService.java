@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -82,6 +81,6 @@ public class ReservationService {
     public void updateReservationStatus(Long reservationId, String status) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID에 맞는 데이터가 존재하지 않습니다."));
-        reservation.updateStatus(ReservationStatus.valueOf(status));
+        reservation.updateStatus(Status.valueOf(status));
     }
 }

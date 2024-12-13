@@ -28,11 +28,13 @@ import lombok.Getter;
 public class DownloadInfo {
   private String contentType;
   private String fileName;
+  private Long fileSize;
   private byte[] data;
 
-  public DownloadInfo(String contentType, String fileName, byte[] data) {
+  public DownloadInfo(String contentType, String fileName, Long fileSize, byte[] data) {
     this.contentType = contentType;
     this.fileName = fileName;
+    this.fileSize = fileSize;
     this.data = data;
   }
 }

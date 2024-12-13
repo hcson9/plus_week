@@ -11,17 +11,14 @@ package com.example.demo.service;/*
 import com.example.demo.dto.ReservationResponseDto;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.Reservation;
-import com.example.demo.entity.ReservationStatus;
 import com.example.demo.entity.User;
 import com.example.demo.exception.ReservationConflictException;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.ReservationRepository;
 import com.example.demo.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Incubating;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -168,7 +165,7 @@ class ReservationServiceTest {
 
 
   @Nested
-  class UpdateReservationStatus {
+  class UpdateStatus {
     @Test
     void updateReservationStatusSuccessTest() {
       // given

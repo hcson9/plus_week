@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
 
 /**
  * create on 2024. 12. 13..
@@ -40,7 +39,7 @@ class ReservationTest {
     User user = Mockito.mock(User.class);
     Reservation reservation = new Reservation(item, user, LocalDateTime.now(), LocalDateTime.now());
 
-    assertDoesNotThrow(() -> reservation.updateStatus(ReservationStatus.APPROVED));
+    assertDoesNotThrow(() -> reservation.updateStatus(Status.APPROVED));
   }
 
   @Test
@@ -50,7 +49,7 @@ class ReservationTest {
     User user = Mockito.mock(User.class);
     Reservation reservation = new Reservation(item, user, LocalDateTime.now(), LocalDateTime.now());
 
-    assertDoesNotThrow(() -> reservation.updateStatus(ReservationStatus.EXPIRED));
+    assertDoesNotThrow(() -> reservation.updateStatus(Status.EXPIRED));
   }
 
   @Test
@@ -60,7 +59,7 @@ class ReservationTest {
     User user = Mockito.mock(User.class);
     Reservation reservation = new Reservation(item, user, LocalDateTime.now(), LocalDateTime.now());
 
-    assertDoesNotThrow(() -> reservation.updateStatus(ReservationStatus.CANCELED));
+    assertDoesNotThrow(() -> reservation.updateStatus(Status.CANCELED));
   }
 
   @Test
@@ -70,8 +69,8 @@ class ReservationTest {
     User user = Mockito.mock(User.class);
     Reservation reservation = new Reservation(item, user, LocalDateTime.now(), LocalDateTime.now());
 
-    reservation.updateStatus(ReservationStatus.EXPIRED);
-    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(ReservationStatus.CANCELED));
+    reservation.updateStatus(Status.EXPIRED);
+    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(Status.CANCELED));
     assertThat(exception.getMessage()).contains("Cannot transition from ");
   }
 
@@ -82,7 +81,7 @@ class ReservationTest {
     User user = Mockito.mock(User.class);
     Reservation reservation = new Reservation(item, user, LocalDateTime.now(), LocalDateTime.now());
 
-    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(ReservationStatus.PENDING));
+    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(Status.PENDING));
     assertThat(exception.getMessage()).contains("Unexpected value:");
   }
 
@@ -93,8 +92,8 @@ class ReservationTest {
     User user = Mockito.mock(User.class);
     Reservation reservation = new Reservation(item, user, LocalDateTime.now(), LocalDateTime.now());
 
-    reservation.updateStatus(ReservationStatus.CANCELED);
-    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(ReservationStatus.EXPIRED));
+    reservation.updateStatus(Status.CANCELED);
+    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(Status.EXPIRED));
     assertThat(exception.getMessage()).contains("Cannot transition from ");
   }
 
@@ -105,8 +104,8 @@ class ReservationTest {
     User user = Mockito.mock(User.class);
     Reservation reservation = new Reservation(item, user, LocalDateTime.now(), LocalDateTime.now());
 
-    reservation.updateStatus(ReservationStatus.CANCELED);
-    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(ReservationStatus.APPROVED));
+    reservation.updateStatus(Status.CANCELED);
+    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> reservation.updateStatus(Status.APPROVED));
     assertThat(exception.getMessage()).contains("Cannot transition from ");
   }
 }

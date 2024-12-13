@@ -30,6 +30,12 @@ class GlobalConstantsTest {
 
   @Test
   void testUserAuthConstant() {
+    GlobalConstants globalConstants = new GlobalConstants() {
+      @Override
+      public int hashCode() {
+        return super.hashCode();
+      }
+    };
     // USER_AUTH 상수가 올바르게 설정되었는지 확인
     assertEquals("USER_AUTH", GlobalConstants.USER_AUTH);
   }

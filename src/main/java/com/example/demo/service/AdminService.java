@@ -23,6 +23,6 @@ public class AdminService {
             throw new IllegalArgumentException("사용자가 없습니다.");
         }
 
-        userRepository.updateStatusToPendingForApprovedUsers(userIds);
+        userRepository.updatePendingStatus(userIds);
     }
 }

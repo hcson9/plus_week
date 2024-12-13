@@ -21,10 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,8 +83,9 @@ public class FileService {
     // InputStream 을 byte 배열로 변환
     String contentType = responseInputStream.response().contentType();
     byte[] fileContent = responseInputStream.readAllBytes();
+    Long contentLength = responseInputStream.response().contentLength();
     responseInputStream.close();
-    return new DownloadInfo(contentType, key, fileContent);
+    return new DownloadInfo(contentType, key, contentLength, fileContent);
   }
 
   public void delete(String key) throws IOException {
