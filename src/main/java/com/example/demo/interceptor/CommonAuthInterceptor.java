@@ -19,18 +19,23 @@ import org.springframework.http.HttpStatus;
 import java.util.Optional;
 
 /**
- * create on 2024. 12. 13..
+ * create on 2024. 12. 13.
  * create by IntelliJ IDEA.
  *
- * <p> 클래스 설명 </p>
- * <p> {@link } and {@link }관련 클래스 </p>
+ * <p> Auth 관련 공통 Interface. </p>
  *
  * @author Hochan Son
  * @version 1.0
- * @see
- * @since 지원하는 자바버전 (ex : 5+ 5이상)
+ * @since 1.0
  */
 public interface CommonAuthInterceptor {
+
+  /**
+   * http session 을 찾는다.
+   *
+   * @param request {@code ServletRequest}
+   * @return {@code HttpSession}
+   */
   default HttpSession findHttpSession(ServletRequest request) {
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
     return Optional.ofNullable(httpServletRequest.getSession(false))

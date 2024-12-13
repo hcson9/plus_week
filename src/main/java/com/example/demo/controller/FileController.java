@@ -24,11 +24,10 @@ import java.util.List;
 /**
  * create on 2024/05/10 create by IntelliJ IDEA.
  *
- * <p> New Project. </p>
+ * <p> File Controller. </p>
  *
  * @author HoChan Son (hcson)
  * @version 1.0
- * @since 1.0
  */
 @RestController
 @RequestMapping("/files")

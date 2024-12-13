@@ -1,11 +1,8 @@
 /*
  * Created by Hochan Son on 2024. 12. 12.
- * As part of Bigin
  *
- * Copyright (C) Bigin (https://bigin.io/main) - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Dev Backend Team <hochan@bigin.io>, 2024. 12. 12.
  */
 
 package com.example.demo.repository;
@@ -23,13 +20,11 @@ import java.util.List;
  * create on 2024. 12. 12..
  * create by IntelliJ IDEA.
  *
- * <p> 클래스 설명 </p>
- * <p> {@link } and {@link }관련 클래스 </p>
+ * <p> 예약 관련 QueryDsl. </p>
  *
  * @author Hochan Son
  * @version 1.0
- * @see
- * @since 지원하는 자바버전 (ex : 5+ 5이상)
+ * @since 1.0
  */
 @Repository
 public class ReservationCustomRepositoryImpl implements ReservationCustomRepository {
@@ -50,10 +45,25 @@ public class ReservationCustomRepositoryImpl implements ReservationCustomReposit
             .fetch();
   }
 
+  /**
+   * User Id 체크.
+   *
+   * @param reservation QClass
+   * @param userId userId
+   * @return 조건
+   */
   private BooleanExpression eqUserId(QReservation reservation, Long userId) {
     return userId != null ? reservation.user.id.eq(userId) : null;
   }
 
+
+  /**
+   * ItemId 체크.
+   *
+   * @param reservation QClass
+   * @param itemId itemId
+   * @return 조건
+   */
   private BooleanExpression eqItemId(QReservation reservation, Long itemId) {
     return itemId != null ? reservation.item.id.eq(itemId) : null;
   }

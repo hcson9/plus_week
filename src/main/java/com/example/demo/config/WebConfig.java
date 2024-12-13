@@ -28,6 +28,11 @@ public class WebConfig implements WebMvcConfigurer {
     private final UserRoleInterceptor userRoleInterceptor;
     private final AdminRoleInterceptor adminRoleInterceptor;
 
+    /**
+     * Interceptor 적용.
+     *
+     * @param registry ?
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
@@ -43,6 +48,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(Ordered.HIGHEST_PRECEDENCE + 2);
     }
 
+    /**
+     * Auth Filter Bean 선언.
+     *
+     * @return {@code FilterRegistrationBean}
+     */
     @Bean
     public FilterRegistrationBean authFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
@@ -52,6 +62,11 @@ public class WebConfig implements WebMvcConfigurer {
         return filterRegistrationBean;
     }
 
+    /**
+     * UserRole Filter Bean 선언.
+     *
+     * @return {@code FilterRegistrationBean}
+     */
     @Bean
     public FilterRegistrationBean userRoleFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();

@@ -1,11 +1,8 @@
 /*
  * Created by Hochan Son on 2024. 12. 12.
- * As part of Bigin
  *
- * Copyright (C) Bigin (https://bigin.io/main) - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Dev Backend Team <hochan@bigin.io>, 2024. 12. 12.
  */
 
 package com.example.demo.config;
@@ -29,37 +26,57 @@ import java.net.URISyntaxException;
  * create on 2024. 12. 12..
  * create by IntelliJ IDEA.
  *
- * <p> 클래스 설명 </p>
- * <p> {@link } and {@link }관련 클래스 </p>
+ * <p> S3 관련 Configuration. </p>
+ * <p> {@link com.example.demo.file.FileService} 관련 클래스 </p>
  *
  * @author Hochan Son
  * @version 1.0
- * @see
- * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
 @Configuration
 public class S3Config {
 
+  /**
+   * Region.
+   */
   @Value("${amazon.s3.region}")
   private String region;
 
+  /**
+   * minio or ncloud 등 사용시엔 url 지정.
+   */
   @Value("${amazon.s3.url}")
   private String url;
 
+  /**
+   * accessKey.
+   */
   @Value("${amazon.s3.access-key}")
   private String accessKey;
 
+
+  /**
+   * secretKey.
+   */
   @Value("${amazon.s3.secret-key}")
   private String secretKey;
 
+  @Value("${amazon.s3.force-path:false}")
+  private boolean forcePath;
+
+  /**
+   * S3 관련 객체.
+   * <pre>
+   *   - forcePathStyle 의 경우 minio 의 경우에 필요하다.
+   *   - {{bucketName}}.s3.amazonaws.com 이 현재 사용 기준
+   *   - s3.amazonaws.com/{{bucketName}}/ 와 같은 방식은 예전기준 -> minio 에서 사용됨.
+   * </pre>
+   * @return
+   */
   @Bean
   public S3Client getS3Client() {
     return S3Client.builder()
             .credentialsProvider(StaticCredentialsProvider.create(awsCredentials(accessKey, secretKey)))
-//            .serviceConfiguration(S3Configuration.builder()
-//                    .pathStyleAccessEnabled(true)
-//                    .build())
-            .forcePathStyle(true) // 필요 시 경로 스타일 사용
+            .forcePathStyle(forcePath) // 필요 시 경로 스타일 사용
             .endpointOverride(customEndpoint())
             .region(Region.of(region))
             .build();

@@ -16,12 +16,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * create on 2024. 12. 13. create by IntelliJ IDEA.
+ * create by IntelliJ IDEA.
+ *
+ * <p> User 관련 컨트롤러.. </p>
+ *
+ * @author Hochan Son
+ * @version 1.0
+ * @since 1.0
+ */
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
+    /**
+     * 회원가입.
+     *
+     * @param userRequestDto 가입요청
+     * @return 성공 유무
+     */
     @PostMapping
     public ResponseEntity<CommonResponseBody<Void>> signupWithEmail(@RequestBody UserRequestDto userRequestDto) {
         userService.signupWithEmail(userRequestDto);
@@ -29,6 +45,13 @@ public class UserController {
                 .body(new CommonResponseBody<>("success"));
     }
 
+    /**
+     * 로그인.
+     *
+     * @param loginRequestDto 로그인 요청
+     * @param request {@code HttpServletRequest}
+     * @return 성공유무
+     */
     @PostMapping("/login")
     public ResponseEntity<CommonResponseBody<Void>> loginWithEmail(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest request) {
         Authentication authentication = userService.loginUser(loginRequestDto);
@@ -38,6 +61,12 @@ public class UserController {
                 .body(new CommonResponseBody<>("success"));
     }
 
+    /**
+     * 로그아웃.
+     *
+     * @param request {@code HttpServletRequest}
+     * @return 성공유무
+     */
     @PostMapping("/logout")
     public ResponseEntity<CommonResponseBody<Void>> logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

@@ -14,11 +14,30 @@ import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 
+/**
+ * create on 2024. 12. 13. create by IntelliJ IDEA.
+ * create by IntelliJ IDEA.
+ *
+ * <p> 권한 관련 인터셉터. </p>
+ *
+ * @author Hochan Son
+ * @version 1.0
+ * @since 1.0
+ */
 @RequiredArgsConstructor
 public class RoleFilter implements CommonAuthFilter {
 
     private final Role role;
 
+    /**
+     * 권한 체크.
+     *
+     * @param servletRequest {@code ServletRequest}
+     * @param servletResponse {@code ServletResponse}
+     * @param filterChain {@code FilterChain}
+     * @throws IOException 발생가능
+     * @throws ServletException 발생가능
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {

@@ -1,17 +1,15 @@
 package com.example.demo.entity;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum Role {
     USER("user"),
     ADMIN("admin");
 
     private final String name;
-
-    Role(String name) {
-        this.name = name;
-    }
 
     public static Role of(String roleName) {
         for (Role role : values()) {

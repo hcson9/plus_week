@@ -1,11 +1,8 @@
 package com.example.demo.service;/*
  * Created by Hochan Son on 2024. 12. 12.
- * As part of Bigin
  *
- * Copyright (C) Bigin (https://bigin.io/main) - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Dev Backend Team <hochan@bigin.io>, 2024. 12. 12.
  */
 
 import com.example.demo.entity.Item;

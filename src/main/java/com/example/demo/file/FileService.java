@@ -1,11 +1,8 @@
 /*
  * Created by Hochan Son on 2024. 12. 12.
- * As part of Bigin
  *
- * Copyright (C) Bigin (https://bigin.io/main) - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Dev Backend Team <hochan@bigin.io>, 2024. 12. 12.
  */
 
 package com.example.demo.file;
@@ -30,13 +27,11 @@ import java.io.InputStream;
  * create on 2024. 12. 12..
  * create by IntelliJ IDEA.
  *
- * <p> 클래스 설명 </p>
- * <p> {@link } and {@link }관련 클래스 </p>
+ * <p> 파일 관련 Service. </p>
  *
  * @author Hochan Son
  * @version 1.0
- * @see
- * @since 지원하는 자바버전 (ex : 5+ 5이상)
+ * @since 1.0
  */
 @Service
 @RequiredArgsConstructor
@@ -48,6 +43,13 @@ public class FileService {
   private String bucket;
 
 
+  /**
+   * MultipartFile Upload.
+   *
+   * @param file MultipartFile
+   * @return key
+   * @throws IOException 발생가능
+   */
   public String uploadMultipartFile(MultipartFile file) throws IOException {
     String key ="/" + file.getOriginalFilename();
     uploadInputStream(key, file.getInputStream(), file.getSize(), file.getContentType());
@@ -72,6 +74,13 @@ public class FileService {
     s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, contentLength));
   }
 
+  /**
+   * 다운로드.
+   *
+   * @param key 받을 key
+   * @return 파일 정보
+   * @throws IOException 발생가능
+   */
   public DownloadInfo download(String key) throws IOException {
     GetObjectRequest getObjectRequest = GetObjectRequest.builder()
             .bucket(bucket)
@@ -88,6 +97,12 @@ public class FileService {
     return new DownloadInfo(contentType, key, contentLength, fileContent);
   }
 
+  /**
+   * 삭제.
+   *
+   * @param key 삭제할 키
+   * @throws IOException 발생가능
+   */
   public void delete(String key) throws IOException {
     DeleteObjectRequest request = DeleteObjectRequest.builder()
             .bucket(bucket)

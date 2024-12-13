@@ -11,13 +11,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * create on 2024. 12. 13. create by IntelliJ IDEA.
+ * create by IntelliJ IDEA.
+ *
+ * <p> Item Controller. </p>
+ *
+ * @author Hochan Son
+ * @version 1.0
+ * @since 1.0
+ */
 @RestController
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemService itemService;
 
-    @PostMapping
+  /**
+   * 아이템 생성.
+   *
+   * @param itemRequestDto 아이템 생성 요청
+   * @return 성공유무
+   */
+  @PostMapping
     public ResponseEntity<CommonResponseBody<Void>> createItem(@RequestBody ItemRequestDto itemRequestDto) {
          itemService.createItem(itemRequestDto.getName(),
                                 itemRequestDto.getDescription(),
