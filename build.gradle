@@ -54,8 +54,6 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-    finalizedBy 'jacocoTestReport'
-
 }
 
 //querydsl 추가 시작
@@ -71,6 +69,7 @@ jacoco {
 }
 
 jacocoTestReport {
+    dependsOn tasks.named('test')
     reports {
         xml.required = false
         csv.required = false

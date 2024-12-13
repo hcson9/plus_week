@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,7 +49,7 @@ class AdminServiceTest {
   private UserRepository userRepository;
 
   @Test
-  void reportUsersTest() {
+  void reportUsersSuccessTest() {
     // given
     List<Long> userIds = List.of(1L, 2L, 3L);
     List<User> users = new ArrayList<>();
@@ -61,5 +62,17 @@ class AdminServiceTest {
 
     // then
     assertDoesNotThrow(() -> adminService.reportUsers(userIds));
+  }
+
+  @Test
+  void reportUsersFailureTest() {
+    // when
+    when(userRepository.findAllById(anyCollection())).thenReturn(Collections.emptyList());
+
+    // then
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> adminService.reportUsers(List.of(1L, 2L, 3L)));
+
+    assertThat(exception.getMessage()).isEqualTo("사용자가 없습니다.");
+
   }
 }

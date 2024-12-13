@@ -35,18 +35,14 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class RoleInterceptor implements HandlerInterceptor {
+public abstract class RoleInterceptor implements HandlerInterceptor, CommonAuthInterceptor {
 
   private final Role role;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
           throws UnauthorizedException {
-    HttpSession session = request.getSession(false);
-    if (session == null) {
-      throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "세션이 끊어졌습니다.");
-    }
-
+    HttpSession session = findHttpSession(request);
     Authentication authentication = (Authentication) session.getAttribute(GlobalConstants.USER_AUTH);
     Role role = authentication.getRole();
 

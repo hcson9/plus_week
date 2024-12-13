@@ -5,6 +5,7 @@ import com.example.demo.dto.ReservationRequestDto;
 import com.example.demo.dto.ReservationResponseDto;
 import com.example.demo.service.ReservationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class ReservationController {
                                             reservationRequestDto.getUserId(),
                                             reservationRequestDto.getStartAt(),
                                             reservationRequestDto.getEndAt());
-        return ResponseEntity.ok()
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new CommonResponseBody<>("success"));
     }
 
@@ -43,7 +44,8 @@ public class ReservationController {
     @GetMapping("/search")
     public ResponseEntity<CommonResponseBody<List<ReservationResponseDto>>> searchAll(@RequestParam(required = false) Long userId,
                           @RequestParam(required = false) Long itemId) {
+        List<ReservationResponseDto> dtos = reservationService.searchAndConvertReservations(userId, itemId);
         return ResponseEntity.ok()
-                .body(new CommonResponseBody<>("success", reservationService.searchAndConvertReservations(userId, itemId)));
+                .body(new CommonResponseBody<>("success", dtos));
     }
 }

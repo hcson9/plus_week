@@ -10,16 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class AuthInterceptor implements HandlerInterceptor, CommonAuthInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws UnauthorizedException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
-        }
-
+        HttpSession session = findHttpSession(request);
         if (session.getAttribute(GlobalConstants.USER_AUTH) == null) {
             throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
         }
