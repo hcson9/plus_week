@@ -50,12 +50,9 @@ public class FileService {
   @Value("${amazon.s3.bucket}")
   private String bucket;
 
-  private String path;
-
-
 
   public String uploadMultipartFile(MultipartFile file) throws IOException {
-    String key = path + "/" + file.getOriginalFilename();
+    String key ="/" + file.getOriginalFilename();
     uploadInputStream(key, file.getInputStream(), file.getSize(), file.getContentType());
     return key;
   }

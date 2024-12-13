@@ -41,9 +41,10 @@ public class UserController {
     @PostMapping("/logout")
     public ResponseEntity<CommonResponseBody<Void>> logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
+        // 이미 필터에서 걸러지기에 필요없는 로직
+//        if (session != null) {
+//            session.invalidate();
+//        }
         return ResponseEntity.ok()
                 .body(new CommonResponseBody<>("success"));
     }

@@ -87,7 +87,8 @@ jacocoTestReport {
         getClassDirectories().setFrom(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*Application*',
                                         '**/*Exception*',
-                                        '**/dto/**'] + Qdomains)
+                                        '**/dto/**',
+                                        "GlobalConstants"] + Qdomains)
         })
     }
 
@@ -114,7 +115,8 @@ jacocoTestCoverageVerification {
             }
             excludes = ['**/*Application*',
                         '**/*Exception*',
-                        '**/dto/**'] + Qdomains
+                        '**/dto/**',
+            "GlobalConstants"] + Qdomains
         }
     }
 }
