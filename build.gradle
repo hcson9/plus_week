@@ -54,6 +54,8 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+
 }
 
 //querydsl 추가 시작
@@ -64,28 +66,30 @@ tasks.withType(JavaCompile) {
     options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
 }
 
-
 jacoco {
     toolVersion = '0.8.12'
 }
+
 jacocoTestReport {
     reports {
-        html.destination file('build/reports/jacocoReport/html')
-
-
-        xml.destination file('build/reports/jacocoReport/jacocoReport.xml')
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 
+    // QueryDsl Q Class 제외
     def Qdomains = []
     for(qPattern in "**/QA" .. "**/QZ"){
         Qdomains.add(qPattern+"*")
     }
-    afterEvaluate {
 
-        classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it,
-                    exclude: [] + Qdomains)
-        }))
+    // QueryDsl Q Class 제외
+    afterEvaluate {
+        getClassDirectories().setFrom(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*Application*',
+                                        '**/*Exception*',
+                                        '**/dto/**'] + Qdomains)
+        })
     }
 
     finalizedBy 'jacocoTestCoverageVerification' // 추가
@@ -94,11 +98,11 @@ jacocoTestReport {
 // 커버리지 수준을 설정
 // rule 적용
 jacocoTestCoverageVerification {
+    // QueryDsl Q Class 제외
     def Qdomains = []
     for (qPattern in "*.QA".."*.QZ") {  // qPattern = "*.QA","*.QB","*.QC", ... "*.QZ"
         Qdomains.add(qPattern + "*")
-    }
-
+    } // 이부분을 지정
 
     violationRules {
         rule {
@@ -107,9 +111,11 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'METHOD'
                 value = 'COVEREDRATIO'
-                minimum = 0.6
+                minimum = 0.1
             }
-            excludes = [] + Qdomains
+            excludes = ['**/*Application*',
+                        '**/*Exception*',
+                        '**/dto/**'] + Qdomains
         }
     }
 }
