@@ -1,4 +1,4 @@
-package com.example.demo.file;/*
+package com.example.demo.service;/*
  * Created by Hochan Son on 2024. 12. 13.
  * As part of Bigin
  *
@@ -9,7 +9,6 @@ package com.example.demo.file;/*
  */
 
 import com.example.demo.dto.DownloadInfo;
-import com.example.demo.service.FileService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
