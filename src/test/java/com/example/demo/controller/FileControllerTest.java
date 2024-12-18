@@ -12,10 +12,8 @@ import com.example.demo.constants.GlobalConstants;
 import com.example.demo.dto.Authentication;
 import com.example.demo.dto.FileDeleteRequest;
 import com.example.demo.dto.FileDownloadRequest;
-import com.example.demo.entity.Role;
-import com.example.demo.file.DownloadInfo;
-import com.example.demo.file.FileService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.demo.dto.DownloadInfo;
+import com.example.demo.service.FileService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,11 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 

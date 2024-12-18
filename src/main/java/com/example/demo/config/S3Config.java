@@ -9,6 +9,7 @@ package com.example.demo.config;
 
 
 
+import com.example.demo.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,6 @@ import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.S3Configuration;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +27,7 @@ import java.net.URISyntaxException;
  * create by IntelliJ IDEA.
  *
  * <p> S3 관련 Configuration. </p>
- * <p> {@link com.example.demo.file.FileService} 관련 클래스 </p>
+ * <p> {@link FileService} 관련 클래스 </p>
  *
  * @author Hochan Son
  * @version 1.0

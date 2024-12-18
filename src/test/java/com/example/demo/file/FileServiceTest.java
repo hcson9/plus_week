@@ -8,6 +8,8 @@ package com.example.demo.file;/*
  * Written by Dev Backend Team <hochan@bigin.io>, 2024. 12. 13.
  */
 
+import com.example.demo.dto.DownloadInfo;
+import com.example.demo.service.FileService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -27,7 +29,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;

@@ -3,8 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.CommonResponseBody;
 import com.example.demo.dto.FileDeleteRequest;
 import com.example.demo.dto.FileDownloadRequest;
-import com.example.demo.file.DownloadInfo;
-import com.example.demo.file.FileService;
+import com.example.demo.dto.DownloadInfo;
+import com.example.demo.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 

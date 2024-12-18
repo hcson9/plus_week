@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.example.demo.file;
+package com.example.demo.dto;
 
 import lombok.Getter;
 
