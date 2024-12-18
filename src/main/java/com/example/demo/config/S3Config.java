@@ -1,5 +1,5 @@
 /*
- * Created by Hochan Son on 2024. 12. 12.
+ * Created by HoChan Son on 2024. 12. 12.
  *
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
@@ -23,7 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * create on 2024. 12. 12..
+ * create on 2024. 12. 12.
  * create by IntelliJ IDEA.
  *
  * <p> S3 관련 Configuration. </p>
@@ -70,7 +70,7 @@ public class S3Config {
    *   - {{bucketName}}.s3.amazonaws.com 이 현재 사용 기준
    *   - s3.amazonaws.com/{{bucketName}}/ 와 같은 방식은 예전기준 -> minio 에서 사용됨.
    * </pre>
-   * @return
+   * @return S3Client
    */
   @Bean
   public S3Client getS3Client() {
