@@ -9,6 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * create on 2024. 12. 20.
+ * create by IntelliJ IDEA.
+ *
+ * <p> 사용자 관련 Repository. </p>
+ *
+ * @author Hochan Son
+ * @version 1.0
+ * @since 1.0
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
