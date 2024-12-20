@@ -53,8 +53,8 @@ public class Reservation {
     private boolean isApproveUpdateStatus(Status status) {
         return switch (status) {
             case APPROVED, EXPIRED -> this.status == Status.PENDING;
-          case CANCELED -> this.status != Status.EXPIRED;
-          default -> throw new IllegalStateException("Unexpected value: " + status);
+            case CANCELED -> this.status != Status.EXPIRED;
+            default -> throw new IllegalStateException("Unexpected value: " + status);
         };
     }
 

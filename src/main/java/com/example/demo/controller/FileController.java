@@ -94,10 +94,4 @@ public class FileController {
     return ResponseEntity.ok()
             .body(new CommonResponseBody("success"));
   }
-
-  @ExceptionHandler(NoSuchKeyException.class)
-  public ResponseEntity<CommonResponseBody<String>> noClassDefFoundError(NoSuchKeyException e) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(new CommonResponseBody<>("Not Found File"));
-  }
 }

@@ -67,7 +67,8 @@ class AdminServiceTest {
     when(userRepository.findAllById(anyCollection())).thenReturn(Collections.emptyList());
 
     // then
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> adminService.reportUsers(List.of(1L, 2L, 3L)));
+    IllegalArgumentException exception =
+            assertThrows(IllegalArgumentException.class, () -> adminService.reportUsers(List.of(1L, 2L, 3L)));
 
     assertThat(exception.getMessage()).isEqualTo("사용자가 없습니다.");
 
