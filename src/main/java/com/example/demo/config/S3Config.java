@@ -60,6 +60,11 @@ public class S3Config {
   @Value("${amazon.s3.secret-key}")
   private String secretKey;
 
+  /**
+   * s3 path style access 타입 유무.
+   * <br>
+   * <a href="https://cloudpark.co.kr/7">관련링크</a>
+   */
   @Value("${amazon.s3.force-path:false}")
   private boolean forcePath;
 
