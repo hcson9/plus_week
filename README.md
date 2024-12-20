@@ -2,6 +2,7 @@
 
 # Minio 사용법
 - 로컬에서 S3 를 사용하기 위한 방법
+- S3 사용시 비용이 들기에 로컬에서 테스트 하기 위한 방법
 ```shell
 docker-compose up -d
 ```
