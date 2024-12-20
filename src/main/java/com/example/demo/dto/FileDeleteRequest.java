@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * create on 2024/05/13 create by IntelliJ IDEA.
  *
- * <p> New Project. </p>
+ * <p> 파일 삭제 요청. </p>
  *
  * @author HoChan Son (hcson)
  * @version 1.0

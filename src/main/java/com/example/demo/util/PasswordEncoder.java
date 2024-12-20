@@ -2,6 +2,16 @@ package com.example.demo.util;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
+/**
+ * create on 2024. 12. 20.
+ * create by IntelliJ IDEA.
+ *
+ * <p> passwordEncoder. </p>
+ *
+ * @author Hochan Son
+ * @version 1.0
+ * @since 1.0
+ */
 public class PasswordEncoder {
 
     /**

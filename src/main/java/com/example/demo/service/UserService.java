@@ -12,13 +12,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-
+/**
+ * create on 2024. 12. 20.
+ * create by IntelliJ IDEA.
+ *
+ * <p> 유저관련 Service. </p>
+ *
+ * @author Hochan Son
+ * @version 1.0
+ * @since 1.0
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
 
+    /**
+     * 이메일로 회원가입.
+     *
+     * @param userRequestDto 회원가입 정보
+     */
     @Transactional
     public void signupWithEmail(UserRequestDto userRequestDto) {
         String encodedPassword = PasswordEncoder.encode(userRequestDto.getPassword());
@@ -30,6 +44,12 @@ public class UserService {
                 encodedPassword));
     }
 
+    /**
+     * 로그인.
+     *
+     * @param loginRequestDto 로그인 요청
+     * @return 로그인 정보
+     */
     public Authentication loginUser(LoginRequestDto loginRequestDto) {
         User user = userRepository.findByEmail(loginRequestDto.getEmail());
         if (user == null || !PasswordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {

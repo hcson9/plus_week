@@ -1,3 +1,36 @@
+
+## API에 필요한 변수 정의
+@nickname = user1243
+@password = 123123
+@role = admin
+@email = 1243@naver.com
+
+### "admin" 권한으로 계정 등록
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "nickname": "{{nickname}}",
+  "password": "{{password}}",
+  "role": "{{role}}",
+  "email": "{{email}}"
+}
+
+### 로그인
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+
+###
+
+POST localhost:8080/users/logout
+
+####
 POST localhost:8080/admins/report-users
 Content-Type: application/json
 

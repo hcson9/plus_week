@@ -9,12 +9,27 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
+/**
+ * create on 2024. 12. 20.
+ * create by IntelliJ IDEA.
+ *
+ * <p> AdminService. </p>
+ *
+ * @author Hochan Son
+ * @version 1.0
+ * @since 1.0
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class AdminService {
     private final UserRepository userRepository;
 
+    /**
+     * 유저 리포트 조회.
+     *
+     * @param userIds 조회할 ids.
+     */
     // TODO: 4. find or save 예제 개선
     @Transactional
     public void reportUsers(List<Long> userIds) {

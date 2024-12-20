@@ -18,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.util.ReflectionTestUtils;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,25 +43,13 @@ class S3ConfigTest {
   @InjectMocks
   private S3Config s3Config;
 
-  @Value("${amazon.s3.region}")
-  private String region;
-
-  @Value("${amazon.s3.url}")
-  private String url;
-
-  @Value("${amazon.s3.access-key}")
-  private String accessKey;
-
-  @Value("${amazon.s3.secret-key}")
-  private String secretKey;
+  private String region = Region.US_WEST_2.toString();
+  private String url = "http://localhost:9000"; // 예시 URL (MinIO 또는 다른 S3 호환 플랫폼)
+  private String accessKey = "accessKey";
+  private String secretKey = "secretKey";
 
   @BeforeEach
   void setUp() {
-    // 필요한 @Value 값을 설정
-    region = "us-west-2";
-    url = "http://localhost:9000"; // 예시 URL (MinIO 또는 다른 S3 호환 플랫폼)
-    accessKey = "accessKey";
-    secretKey = "secretKey";
     ReflectionTestUtils.setField(s3Config, "region", region);
     ReflectionTestUtils.setField(s3Config, "accessKey", accessKey);
     ReflectionTestUtils.setField(s3Config, "secretKey", secretKey);

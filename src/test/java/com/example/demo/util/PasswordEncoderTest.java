@@ -26,11 +26,10 @@ import static org.mockito.Mockito.*;
 class PasswordEncoderTest {
 
   private PasswordEncoder passwordEncoder;
+  private String password = "123456";
 
   @Test
   void encodeTest() {
-    String password = "123456";
-
     String encoded = passwordEncoder.encode(password);
     assertThat(encoded).isNotEqualTo(password);
   }
@@ -38,7 +37,6 @@ class PasswordEncoderTest {
   @Test
   void matchesSuccessTest() {
     // given
-    String password = "123456";
     String encoded = passwordEncoder.encode(password);
 
     // then
@@ -48,7 +46,6 @@ class PasswordEncoderTest {
   @Test
   void matchesFailTest() {
     // given
-    String password = "123456";
     String encoded = passwordEncoder.encode(password);
 
     // then

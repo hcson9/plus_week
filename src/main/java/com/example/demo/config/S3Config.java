@@ -82,6 +82,13 @@ public class S3Config {
             .build();
   }
 
+  /**
+   * 계정 접속 정보 생성.
+   *
+   * @param accessKey accessKey
+   * @param secretKey secretKey
+   * @return {@code AwsCredentials}
+   */
   private AwsCredentials awsCredentials(String accessKey, String secretKey) {
     return AwsBasicCredentials.builder()
             .accessKeyId(accessKey)

@@ -31,6 +31,11 @@ public class ReservationCustomRepositoryImpl implements ReservationCustomReposit
 
   private final JPAQueryFactory jpaQueryFactory;
 
+  /**
+   * 생성자.
+   *
+   * @param entityManager entityManager
+   */
   public ReservationCustomRepositoryImpl(EntityManager entityManager) {
     this.jpaQueryFactory = new JPAQueryFactory(entityManager);
   }
