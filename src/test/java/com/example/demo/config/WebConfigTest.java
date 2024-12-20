@@ -60,14 +60,16 @@ class WebConfigTest {
 
   @Test
   void addInterceptors() {
-
+    // given
     InterceptorRegistry registry = Mockito.mock(InterceptorRegistry.class);
-    // Mock addInterceptor behavior
+
+    // when
     when(registry.addInterceptor(authInterceptor)).thenReturn(registration);
     when(registry.addInterceptor(userRoleInterceptor)).thenReturn(registration);
     when(registry.addInterceptor(adminRoleInterceptor)).thenReturn(registration);
     when(registration.addPathPatterns(any(String[].class))).thenReturn(registration);
 
+    // then
     assertDoesNotThrow(() -> webConfig.addInterceptors(registry));
   }
 
