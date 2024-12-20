@@ -8,7 +8,7 @@
 package com.example.demo.entity;
 
 /**
- * create on 2024. 12. 12..
+ * create on 2024. 12. 12.
  * create by IntelliJ IDEA.
  *
  * <p> 상태값. </p>
@@ -22,6 +22,6 @@ public enum Status {
   APPROVED,
   PENDING,
   CANCELED,
-  EXPIRED;
+  EXPIRED
 
 }

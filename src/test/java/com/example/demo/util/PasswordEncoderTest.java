@@ -7,9 +7,8 @@ package com.example.demo.util;/*
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * create on 2024. 12. 12..

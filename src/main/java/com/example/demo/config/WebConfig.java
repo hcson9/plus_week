@@ -48,31 +48,33 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(Ordered.HIGHEST_PRECEDENCE + 2);
     }
 
-//    /**
-//     * Auth Filter Bean 선언.
-//     *
-//     * @return {@code FilterRegistrationBean}
-//     */
-//    @Bean
-//    public FilterRegistrationBean authFilter() {
-//        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-//        filterRegistrationBean.setFilter(new AuthFilter());
-//        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        filterRegistrationBean.addUrlPatterns(AUTH_REQUIRED_PATH_PATTERNS);
-//        return filterRegistrationBean;
-//    }
-//
-//    /**
-//     * UserRole Filter Bean 선언.
-//     *
-//     * @return {@code FilterRegistrationBean}
-//     */
-//    @Bean
-//    public FilterRegistrationBean userRoleFilter() {
-//        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-//        filterRegistrationBean.setFilter(new RoleFilter(Role.USER));
-//        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 2);
-//        filterRegistrationBean.addUrlPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS);
-//        return filterRegistrationBean;
-//    }
+    /**
+     * Auth Filter Bean 선언.
+     * 사용 안함
+     *
+     * @return {@code FilterRegistrationBean}
+     */
+    // @Bean
+    public FilterRegistrationBean authFilter() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new AuthFilter());
+        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        filterRegistrationBean.addUrlPatterns(AUTH_REQUIRED_PATH_PATTERNS);
+        return filterRegistrationBean;
+    }
+
+    /**
+     * UserRole Filter Bean 선언.
+     * 사용 안함
+     *
+     * @return {@code FilterRegistrationBean}
+     */
+    // @Bean
+    public FilterRegistrationBean userRoleFilter() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new RoleFilter(Role.USER));
+        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 2);
+        filterRegistrationBean.addUrlPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS);
+        return filterRegistrationBean;
+    }
 }
