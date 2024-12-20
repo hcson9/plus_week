@@ -57,7 +57,7 @@ class UserServiceTest {
 
 
   @Nested
-  class loginUser{
+  class loginUser {
     @Test
     void loginUserSuccessfullyTest() {
       // given
@@ -82,7 +82,8 @@ class UserServiceTest {
 
 
       // then
-      assertThrows(ResponseStatusException.class, () -> userService.loginUser(requestDto));
+      ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> userService.loginUser(requestDto));
+      assertThat(exception.getReason()).isEqualTo("유효하지 않은 사용자 이름 혹은 잘못된 비밀번호");
     }
 
     @Test
@@ -96,7 +97,8 @@ class UserServiceTest {
       when(userRepository.findByEmail(requestDto.getEmail())).thenReturn(user);
 
       // then
-      assertThrows(ResponseStatusException.class, () -> userService.loginUser(requestDto));
+      ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> userService.loginUser(requestDto));
+      assertThat(exception.getReason()).isEqualTo("유효하지 않은 사용자 이름 혹은 잘못된 비밀번호");
     }
   }
 
