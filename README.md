@@ -3,7 +3,7 @@
 # Minio 사용법
 - 로컬에서 S3 를 사용하기 위한 방법
 ```shell
-docker-compose up
+docker-compose up -d
 ```
 - localhost:9000 접속
 - id : minio
